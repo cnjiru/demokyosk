@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package deployment.artifact.v1;
+
+option java_multiple_files = true;
+
+
+message Artifact {
+  string id = 1;
+  string asset_id = 2;
+  string image_name = 3;
+  string image_tag = 4;
+  string git_commit_id = 5;
+  string pull_request_url = 6;
+  repeated string feature_flags = 7;
+
+}

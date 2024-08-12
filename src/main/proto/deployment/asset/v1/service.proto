@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package deployment.asset.v1;
+
+option java_multiple_files = true;
+
+import "query/v1/query.proto";
+import "rpc/status/v1/status.proto";
+import "deployment/asset/v1/asset.proto";
+
+
+
+message QueryAssetResponse {
+  repeated Asset asset = 1;
+}
+
+
+
+message QueryRequest {
+
+    repeated Filter filters = 1;
+
+    int32 page = 2;
+    int32 page_size = 3;
+
+    repeated Sort sort = 5;
+
+
+}
+
+message Filter{
+    string field = 1;
+    QueryOperator op = 2;
+    string value = 3;
+    optional FieldType field_type = 4;
+}
+enum SortDir {
+    DESC = 0;
+    ASC = 1;
+}
+
+message Sort {
+    string field = 1;
+    SortDir dir = 2;
+}
+
+enum FieldType{
+    STRING = 0;
+    INTEGER = 1;
+    BOOLEAN = 2;
+}
+
+enum QueryOperator{
+
+    // Generic
+    EQ = 0;
+    IN = 1;
+    NEQ = 2;
+
+    // String Specific
+    CONTAINS = 6;
+
+    // Date & Numeric
+    GT = 10;
+    GTE = 11;
+
+    LT = 12;
+    LTE = 13;
+
+    BTWN = 14;
+
+    // Geographic
+    WITHIN_RADIUS = 20;
+    WITHIN_POLYGON = 21;
+
+    WITHOUT_RADIUS = 22;
+    WITHOUT_POLYGON = 23;
+
+    BEFORE =24;
+    AFTER = 25;
+
+}
+
+service AssetService {
+  rpc QueryAsset (QueryRequest) returns (QueryAssetResponse);
+}

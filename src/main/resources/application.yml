@@ -1,0 +1,20 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
+    ROOT: INFO
+    io.temporal: DEBUG
+    io.grpc: DEBUG
+spring:
+  application:
+    name: demokyosk
+
+  temporal:
+    connection:
+      target: ${TEMPORAL_URL:localhost:7233}
+    workers-auto-discovery:
+      packages: app.kyosk.idp.deployment
+    start-workers: true
+    namespace: ${TEMPORAL_NAMESPACE:default}

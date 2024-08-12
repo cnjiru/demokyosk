@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package deployment.software_release.v1;
+
+option java_multiple_files = true;
+
+message SoftwareRelease {
+  string id = 1;
+  string artifact_id = 2;
+  repeated string deployment_ids = 3;
+
+  enum Status {
+    CREATED = 0;
+    DEPLOYED_TO_STAGING = 1;
+    READY_FOR_PROD = 2;
+    DEPLOYED_TO_PROD = 3;
+    COMPLETED = 4;
+    FAILED = 5;
+    CANCELED = 6;
+    ROLLED_BACK = 7;
+  }
+  Status status = 4;
+  string jira_release_link = 5;
+}

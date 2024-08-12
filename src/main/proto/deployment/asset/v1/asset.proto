@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package deployment.asset.v1;
+
+option java_multiple_files = true;
+
+message Asset {
+  string id = 1;
+  string name = 2;
+
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    LIBRARY = 1;
+    FRONT_END_APP = 2;
+    BACK_END_SERVICE = 3;
+  }
+  Type type = 3;
+
+  string argo_cd_path = 4;
+  string team_id  = 5;
+  string owner = 6;
+  string description = 7;
+  string repository_name = 8;
+  string path_in_repository = 9;
+  bool deleted = 10;
+}
+

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package deployment.deployment.v1;
+
+option java_multiple_files = true;
+message Deployment {
+  string id = 1;
+  string current_artifact_id = 2;
+  string rollback_artifact_id = 3;
+
+  enum Environment {
+    ENVIRONMENT_UNSPECIFIED = 0;
+    STAGING = 1;
+    PRODUCTION = 2;
+  }
+  Environment environment = 4;
+
+  enum Status {
+    CREATED = 0;
+    DEPLOYED = 1;
+    FAILED = 2;
+    ROLLED_BACK = 3;
+  }
+  Status status = 5;
+}

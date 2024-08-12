@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package common.query.v1;
+
+option java_multiple_files = true;
+
+message QueryRequest {
+
+    repeated Filter filters = 1;
+
+    int32 page = 2;
+    int32 page_size = 3;
+
+    repeated Sort sort = 5;
+
+
+}
+
+enum QueryOperator{
+    
+    // Generic
+    EQ = 0;
+    IN = 1;
+    NEQ = 2;
+
+    // String Specific
+    CONTAINS = 6;
+
+    // Date & Numeric
+    GT = 10;
+    GTE = 11;
+
+    LT = 12;
+    LTE = 13;
+
+    BTWN = 14;
+
+    // Geographic 
+    WITHIN_RADIUS = 20;  // A point (withing data to be queried) within a given radius(to be provided in the query)
+    WITHIN_POLYGON = 21; // A point (withing data to be queried) within a given polygon(to be provided in the query)
+
+    WITHOUT_RADIUS = 22;  // A point (withing data to be queried) within a given radius(to be provided in the query)
+    WITHOUT_POLYGON = 23; // A point (withing data to be queried) within a given polygon(to be provided in the query)
+
+    BEFORE =24;
+    AFTER = 25;
+
+}
+
+enum FieldType{
+    STRING = 0;
+    INTEGER = 1;
+    BOOLEAN = 2;
+}
+
+message Filter{
+    string field = 1;  // The field to be queried eg name or kyosk.name
+    QueryOperator op = 2; // The operator to be used
+    string value = 3; // The value that will be used in the query
+    optional FieldType field_type = 4; // The data type of the filter field
+}
+
+enum SortDir {
+    DESC = 0;
+    ASC = 1;
+}
+
+message Sort {
+    string field = 1;
+    SortDir dir = 2;
+}
